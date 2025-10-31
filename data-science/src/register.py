@@ -27,12 +27,15 @@ def main(args):
 
     print("Registering ", args.model_name)
 
+    # Step 1: Load the model from the specified path using `mlflow.sklearn.load_model` for further processing.  
     # Load model
     model = mlflow.sklearn.load_model(args.model_path)
 
+    # Step 2: Log the loaded model in MLflow with the specified model name for versioning and tracking.
     # Log model using mlflow
     mlflow.sklearn.log_model(model, args.model_name)
 
+    # Step 3: Register the logged model using its URI and model name, and retrieve its registered version.  
     # Register logged model using mlflow
     run_id = mlflow.active_run().info.run_id
     model_uri = f'runs:/{run_id}/{args.model_name}'
